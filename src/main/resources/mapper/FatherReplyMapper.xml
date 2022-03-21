@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.schoolwall.mapper.FatherReplyMapper">
+    <resultMap id="replyVoResultMap" type="com.schoolwall.entity.vo.ReplyVo">
+        <id column="f_id" property="id" jdbcType="BIGINT"/>
+        <result column="f_nick_name" property="nickName" jdbcType="CHAR"/>
+        <result column="f_avatar_url" property="avatarUrl" jdbcType="VARCHAR"/>
+        <result column="f_content" property="content" jdbcType="LONGVARCHAR"/>
+        <result column="f_father_reply_date" property="fatherReplyDate" jdbcType="TIMESTAMP"/>
+
+
+        <collection property="sonList" ofType="com.schoolwall.entity.vo.SonReplyVo">
+            <id column="s_id" property="id" jdbcType="BIGINT"/>
+            <result column="s_nick_name" property="nickName" jdbcType="CHAR"/>
+            <result column="s_avatar_url" property="avatarUrl" jdbcType="VARCHAR"/>
+            <result column="s_content" property="content" jdbcType="LONGVARCHAR"/>
+            <result column="s_receiver_nick" property="receiverNick" jdbcType="CHAR"/>
+            <result column="s_son_reply_date" property="sonReplyDate" jdbcType="TIMESTAMP"/>
+        </collection>
+
+    </resultMap>
+
+
+    <select id="selectReplyVoByPostId" resultMap="replyVoResultMap" parameterType="java.lang.Long">
+        select f.id as f_id,u.nick_name as f_nick_name,u.avatar_url as f_avatar_url,f.content as
+        f_content,f.father_reply_date as f_father_reply_date,
+
+        s.id as s_id,su.nick_name as s_nick_name,su.avatar_url as
+        s_avatar_url,s.content as s_content,s.receiver_nick as s_receiver_nick,s.son_reply_date as s_son_reply_date
+        from sw_father_reply f
+        left join sw_user u on user_id = u.id
+        left join sw_son_reply s on father_reply_id = f.id
+        left join sw_user su on su.id = s.user_id
+        <where>
+            f.post_id = #{post_id}
+        </where>
+        order by father_reply_date asc, son_reply_date asc;
+
+    </select>
+
+</mapper>
