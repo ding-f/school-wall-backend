@@ -41,7 +41,7 @@ public class PostsController {
     @GetMapping("/posts/page={page}")
     public IPage list(@PathVariable(name = "page") Integer page) {
 
-        Page dividePage = new Page(page, 10);
+        Page dividePage = new Page(page, 10,false);     //false 代表不进行全部列表的条目统计，即只进行了数据库内部进行分页操作，如果不定义就会查询所有条目并统计所有条目数目
         QueryWrapper queryWrapper = new QueryWrapper<Posts>().select("id","title", "post_medium_image", "date", "total_comments", "like_count", "pageviews").orderByDesc("date");
         //QueryWrapper<Blog>查询出来后应该是全部的Blog列表然后进行一个排序，利用page进行分页操作。
         IPage pageData = postsService.page(dividePage, queryWrapper);

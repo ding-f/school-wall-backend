@@ -53,11 +53,11 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://fuding.qicp.vip:6066/school_wall?useUnicode=true&useSSL=false&character_set_server=utf8mb4 &serverTimezone=Asia/Shanghai");
+        dsc.setUrl("jdbc:mysql://localhost:3306/school_wall?useUnicode=true&useSSL=false&character_set_server=utf8mb4 &serverTimezone=Asia/Shanghai");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-        dsc.setUsername("root");
-        dsc.setPassword("v83NwTHzb5_");
+        dsc.setUsername("fuding");
+        dsc.setPassword("Fuding$$$");
         mpg.setDataSource(dsc);
 
         // 包配置

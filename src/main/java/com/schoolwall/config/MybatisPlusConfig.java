@@ -6,6 +6,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * <p>
+ * 安康学院校园墙后端
+ * </p>
+ *
+ * @author fuding 铸鼎_ Blog: https://ding-f.gitee.io/
+ * @since 2022 2022/2/10 2:39 PM
+ */
+
 @Configuration
 @EnableTransactionManagement
 @MapperScan("com.schoolwall.mapper")

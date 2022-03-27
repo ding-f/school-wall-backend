@@ -44,7 +44,7 @@ public class Posts implements Serializable {
 
     private LocalDateTime modified;
 
-    private String type;
+//    private String type;
 
     private Integer totalComments;
 

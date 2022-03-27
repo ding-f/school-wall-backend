@@ -1,5 +1,6 @@
 package com.schoolwall.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.schoolwall.entity.FatherReply;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.schoolwall.entity.vo.ReplyVo;
@@ -21,6 +22,6 @@ import java.util.Map;
 @Component(value = "FatherReplyMapper")
 public interface FatherReplyMapper extends BaseMapper<FatherReply> {
 
-    List<Map<String, Object>> selectReplyVoByPostId(@Param("post_id") Long postID);
+    IPage<Map<String, Object>> selectReplyVoByPostId(IPage<Map<String, Object>> page,@Param("post_id") Long postID);
 
 }

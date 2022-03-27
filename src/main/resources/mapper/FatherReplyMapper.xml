@@ -34,7 +34,7 @@
         <where>
             f.post_id = #{post_id}
         </where>
-        order by father_reply_date asc, son_reply_date asc;
+        order by father_reply_date asc, son_reply_date asc
 
     </select>
 

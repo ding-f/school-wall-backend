@@ -1,14 +1,13 @@
 package com.schoolwall.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.schoolwall.entity.FatherReply;
-import com.schoolwall.entity.vo.ReplyVo;
 import com.schoolwall.mapper.FatherReplyMapper;
 import com.schoolwall.service.FatherReplyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,9 +24,14 @@ public class FatherReplyServiceImpl extends ServiceImpl<FatherReplyMapper, Fathe
 @Autowired
 private FatherReplyMapper fatherReplyMapper;
 
+
+
+
     @Override
-    public List<Map<String, Object>> selectReplyVoByPostId(Long postId) {
-        List<Map<String, Object>> replyVo= fatherReplyMapper.selectReplyVoByPostId(postId);
-        return replyVo;
+    public IPage<Map<String, Object>> selectReplyVoByPostId(IPage<Map<String, Object>> page, Long postId) {
+        IPage<Map<String, Object>> iPageFatherReply= fatherReplyMapper.selectReplyVoByPostId(page,postId);
+        return iPageFatherReply;
     }
+
+
 }

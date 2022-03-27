@@ -2,4 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.schoolwall.mapper.PostCategoriesMapper">
 
+    <resultMap id="postCategoriesMap" type="com.schoolwall.entity.PostCategories" autoMapping="true">
+        <result property="count" column="posts_count"/>
+    </resultMap>
+
+
+    <select id="selectCountPostByCategories" resultMap="postCategoriesMap">
+
+        select spc.id, spc.name, spc.description, spc.category_thumbnail_image, count(sp.id) as posts_count
+        from sw_post_categories spc
+                 left join sw_posts sp on sp.category_id = spc.id
+        group by spc.id
+        order by posts_count desc
+
+    </select>
+
 </mapper>

@@ -1,6 +1,8 @@
 package com.schoolwall.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.schoolwall.common.lang.Result;
 import com.schoolwall.entity.vo.ReplyVo;
 import com.schoolwall.service.FatherReplyService;
@@ -37,10 +39,17 @@ public class FatherReplyController {
     public Result commentList(@PathVariable(name = "postid") Long postId, @PathVariable(name = "commentspage") Integer commentsPage) {
 //        System.out.println("文章ID："+postId+"\n评论页面数："+commentsPage);
 
+        Page<Map<String, Object>> dividePage = new Page(commentsPage, 5,false);
 
-        List<Map<String, Object>> replyVo = fatherReplyService.selectReplyVoByPostId(postId);
+        IPage<Map<String, Object>> replyVo = fatherReplyService.selectReplyVoByPostId(dividePage,postId);
+
+
+
+//        fatherReplyService.page();
+
 
          Result result=Result.succ(replyVo);
+
 
 //        System.out.println(replyVo);
         return result;

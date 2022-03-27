@@ -1,5 +1,6 @@
 package com.schoolwall.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -27,7 +28,14 @@ public class PostCategories implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private String categorieName;
+    private String name;
+
+    private String description;
+
+    private String categoryThumbnailImage;
+
+    @TableField(exist = false)
+    private Integer count;
 
 
 }

@@ -5,6 +5,16 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
+
+/**
+ * <p>
+ * 安康学院校园墙后端
+ * </p>
+ *
+ * @author fuding 铸鼎_ Blog: https://ding-f.gitee.io/
+ * @since 2022 2022/2/19 9:00 AM
+ */
+
 @Data
 @Accessors(chain = true)
 public class Result implements Serializable {

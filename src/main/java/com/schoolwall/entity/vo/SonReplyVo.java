@@ -7,6 +7,15 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * <p>
+ * 安康学院校园墙后端
+ * </p>
+ *
+ * @author fuding 铸鼎_ Blog: https://ding-f.gitee.io/
+ * @since 2022 2022/3/20 4:59 PM
+ */
+
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
