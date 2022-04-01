@@ -17,6 +17,6 @@ import java.util.List;
 
 public interface PostCategoriesService extends IService<PostCategories> {
 
-    public List<PostCategories> selectCountPostByCategories();
+    List<PostCategories> selectCountPostByCategories();
 
 }

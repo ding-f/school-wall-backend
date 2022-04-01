@@ -39,7 +39,7 @@ public class PostsController {
 
     //查询帖子分页列表
     @GetMapping("/posts/page={page}")
-    public IPage list(@PathVariable(name = "page") Integer page) {
+    public IPage postList(@PathVariable(name = "page") Integer page) {
 
         Page dividePage = new Page(page, 10,false);     //false 代表不进行全部列表的条目统计，即只进行了数据库内部进行分页操作，如果不定义就会查询所有条目并统计所有条目数目
         QueryWrapper queryWrapper = new QueryWrapper<Posts>().select("id","title", "post_medium_image", "date", "total_comments", "like_count", "pageviews").orderByDesc("date");
@@ -51,7 +51,7 @@ public class PostsController {
 
     //查询帖子详细信息
     @GetMapping("getpost/id={id}")
-    public Posts postDetail(@PathVariable(name = "id") Integer id) {
+    public Posts postDetail(@PathVariable(name = "id") Long id) {
         Posts post = postsService.getById(id);
 
         //查询某文章所有的图片
@@ -65,6 +65,29 @@ public class PostsController {
         post.setAvatarUrls(avatarUrlsList);
 
         return post;
+    }
+
+    //根据分类ID获取该ID下的所有文章
+    @GetMapping("/posts/page={page}/categorieid={cid}")
+    public IPage<Posts> postListByCategorieId(@PathVariable(name = "page") Integer pageNum ,@PathVariable(name = "cid") Integer cateId){
+
+        QueryWrapper queryWrapper= new QueryWrapper<Posts>().select("id","title", "post_medium_image", "date", "total_comments", "like_count", "pageviews").eq("category_id",cateId);
+
+
+//        List postList= postsService.list(queryWrapper);
+
+        Page page = new Page(pageNum,10,false);
+
+        IPage<Posts> pageData = postsService.page(page,queryWrapper);
+
+        return pageData;
+    }
+
+    //根据关键字搜索含有关键字的标题或文章
+    @GetMapping("/posts/page={pagenum}/search={keyword}")
+    public void searchPosts(@PathVariable("pagenum") Integer pageNum,@PathVariable("keyword") String keyWord) {
+
+        System.out.println("当前页面："+ pageNum+"-------------搜索关键字："+keyWord);
     }
 
 }
