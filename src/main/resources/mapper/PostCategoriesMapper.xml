@@ -3,6 +3,7 @@
 <mapper namespace="com.schoolwall.mapper.PostCategoriesMapper">
 
     <resultMap id="postCategoriesMap" type="com.schoolwall.entity.PostCategories" autoMapping="true">
+        <id property="id" column="id"/>
         <result property="count" column="posts_count"/>
     </resultMap>
 

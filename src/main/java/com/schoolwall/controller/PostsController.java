@@ -1,22 +1,21 @@
 package com.schoolwall.controller;
 
-import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.schoolwall.entity.Images;
-import com.schoolwall.entity.Like;
 import com.schoolwall.entity.Posts;
 import com.schoolwall.entity.User;
 import com.schoolwall.service.ImagesService;
-import com.schoolwall.service.LikeService;
 import com.schoolwall.service.PostsService;
 import com.schoolwall.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -42,7 +41,9 @@ public class PostsController {
     public IPage postList(@PathVariable(name = "page") Integer page) {
 
         Page dividePage = new Page(page, 10,false);     //false 代表不进行全部列表的条目统计，即只进行了数据库内部进行分页操作，如果不定义就会查询所有条目并统计所有条目数目
-        QueryWrapper queryWrapper = new QueryWrapper<Posts>().select("id","title", "post_medium_image", "date", "total_comments", "like_count", "pageviews").orderByDesc("date");
+        QueryWrapper queryWrapper = new QueryWrapper<Posts>()
+                .select("id","title", "post_medium_image", "date", "total_comments", "like_count", "pageviews")
+                .orderByDesc("date");
         //QueryWrapper<Blog>查询出来后应该是全部的Blog列表然后进行一个排序，利用page进行分页操作。
         IPage pageData = postsService.page(dividePage, queryWrapper);
 
@@ -60,7 +61,10 @@ public class PostsController {
         post.setPostAllImages(postImages);
 
         //查询某文章点赞用户头像
-        QueryWrapper<User> userQueryWrapper = new QueryWrapper<User>().select("avatar_url").inSql("id", "select user_id from sw_like where post_id = " + id);
+        QueryWrapper<User> userQueryWrapper = new QueryWrapper<User>()
+                .select("avatar_url")
+                .inSql("id", "select user_id from sw_like where post_id = " + id);
+
         List avatarUrlsList = userService.list(userQueryWrapper);
         post.setAvatarUrls(avatarUrlsList);
 
@@ -71,7 +75,8 @@ public class PostsController {
     @GetMapping("/posts/page={page}/categorieid={cid}")
     public IPage<Posts> postListByCategorieId(@PathVariable(name = "page") Integer pageNum ,@PathVariable(name = "cid") Integer cateId){
 
-        QueryWrapper queryWrapper= new QueryWrapper<Posts>().select("id","title", "post_medium_image", "date", "total_comments", "like_count", "pageviews").eq("category_id",cateId);
+        QueryWrapper queryWrapper= new QueryWrapper<Posts>().select("id","title", "post_medium_image", "date", "total_comments", "like_count", "pageviews")
+                .eq("category_id",cateId);
 
 
 //        List postList= postsService.list(queryWrapper);
@@ -85,9 +90,20 @@ public class PostsController {
 
     //根据关键字搜索含有关键字的标题或文章
     @GetMapping("/posts/page={pagenum}/search={keyword}")
-    public void searchPosts(@PathVariable("pagenum") Integer pageNum,@PathVariable("keyword") String keyWord) {
+    public IPage<Posts> searchPosts(@PathVariable("pagenum") Integer pageNum,@PathVariable("keyword") String keyWord) {
+        QueryWrapper queryWrapper =new QueryWrapper<Posts>()
+                .select("id","title", "post_medium_image", "date", "total_comments", "like_count", "pageviews")
+                .like("content",keyWord)
+                .or()
+                .like("title",keyWord);
 
-        System.out.println("当前页面："+ pageNum+"-------------搜索关键字："+keyWord);
+        Page page = new Page(pageNum, 10,false);
+
+        IPage<Posts> searchPostsPage= postsService.page(page,queryWrapper);
+
+//        System.out.println("当前页面："+ pageNum+"-------------搜索关键字："+keyWord);
+
+        return searchPostsPage;
     }
 
 }

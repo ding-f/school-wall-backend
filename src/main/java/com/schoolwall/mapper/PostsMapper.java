@@ -1,7 +1,7 @@
 package com.schoolwall.mapper;
 
-import com.schoolwall.entity.Posts;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.schoolwall.entity.Posts;
 
 /**
  * <p>
@@ -11,6 +11,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author fuding
  * @since 2022-03-10
  */
+
+
 public interface PostsMapper extends BaseMapper<Posts> {
 
 }

@@ -2,6 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.schoolwall.mapper.PostsMapper">
 
+<!--    <resultMap id="searchPostResult" type="com.schoolwall.entity.Posts" autoMapping="true">-->
+<!--        <id column="id" property="id"/>-->
+<!--        -->
+<!--    </resultMap>-->
 
-    <select id="seachPosts" resultMap=""
+<!--    <select id="seachPosts" resultMap="searchPostResult" parameterType="String" >-->
+<!--        SELECT id, title, post_medium_image, date, total_comments, like_count, pageviews-->
+<!--        FROM school_wall.sw_posts-->
+<!--        where content like concat('%'-->
+<!--            , #{searchKey}-->
+<!--            , '%')-->
+<!--           or title like concat('%'-->
+<!--            , #{searchKey}-->
+<!--            , '%')-->
+<!--        order by date desc-->
+<!--    </select>-->
 </mapper>

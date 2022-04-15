@@ -26,16 +26,20 @@ public class ReplyVo implements Serializable {
 
     private Long id;
 
-
+    private Long fatherUserID;
 
     private String nickName;
 
     private String avatarUrl;
 
-
     private String content;
 
+    private Long receiverID;
+
     private LocalDateTime fatherReplyDate;
+
+
+//    private String test;
 
 
     private List<SonReplyVo> sonList;

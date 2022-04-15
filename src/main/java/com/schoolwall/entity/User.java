@@ -46,6 +46,8 @@ public class User implements Serializable {
 
     private String rank;
 
+    private String enable;
+
     private LocalDateTime registerDate;
 
 

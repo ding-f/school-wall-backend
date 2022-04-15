@@ -25,11 +25,15 @@ public class SonReplyVo implements Serializable {
 
     private Long id;
 
+    private Long sonUserID;
+
     private String nickName;
 
     private String avatarUrl;
 
     private String content;
+
+    private Long sonReceiverID;
 
     private String receiverNick;
 
