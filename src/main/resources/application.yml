@@ -21,7 +21,7 @@ shiro-redis:
 schoolwall:
   jwt:
     # 加密秘钥
-    secret: f3e1e52034348f86b67cde581c0f9eb6
-    # token有效时长，7天，单位秒
-    expire: 604800
+    secret: 4a927e2d67e76622fcdf98f2aa4f06fc
+    # token有效时长，7天，单位毫秒
+    expire: 604800000
     header: Authorization

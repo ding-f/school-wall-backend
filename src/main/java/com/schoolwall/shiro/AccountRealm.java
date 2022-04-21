@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.schoolwall.entity.User;
 import com.schoolwall.service.UserService;
 import com.schoolwall.util.JwtUtil;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -34,7 +35,7 @@ public class AccountRealm extends AuthorizingRealm {
         return null;
     }
 
-    //身份验证
+    //身份验证（@RequiresAuthentication注解触发执行）
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 
@@ -44,7 +45,7 @@ public class AccountRealm extends AuthorizingRealm {
         //(String) jwtToken.getPrincipal()得到JWT的字符串再将字符串JWT放入jwtUtils.getClaimByToken(String token),解析出Subject即UserID
         String userId = jwtUtil.getClaimByToken((String) jwtToken.getPrincipal()).getSubject();
 
-        User user = userService.getById(Long.valueOf(userId));
+        User user = userService.getById(Integer.valueOf(userId));
         if (user == null) {
             throw new UnknownAccountException("账户不存在");
         }
@@ -56,7 +57,8 @@ public class AccountRealm extends AuthorizingRealm {
         AccountProfile profile = new AccountProfile();
         BeanUtil.copyProperties(user, profile);
 
-        return new SimpleAuthenticationInfo(profile, jwtToken.getCredentials(), getName());
+
+        return new SimpleAuthenticationInfo(profile, jwtToken.getCredentials(), getName());     //getName()="jwt"
     }
 }
 

@@ -42,6 +42,7 @@ public class JwtUtil {
         //过期时间
         Date expireDate = new Date(nowDate.getTime() + expire);
 
+
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
                 .setSubject(userId+"")

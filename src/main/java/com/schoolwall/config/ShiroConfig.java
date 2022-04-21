@@ -80,7 +80,7 @@ public class ShiroConfig {
 
         Map<String, String> filterMap = new LinkedHashMap<>();
 
-        filterMap.put("/**", "jwt");        // 自定义了一个JWT专属的过滤器
+        filterMap.put("/**", "jwt");        // 自定义了一个JWT专属的过滤器,拦截所有请求
         chainDefinition.addPathDefinitions(filterMap);
         return chainDefinition;
     }

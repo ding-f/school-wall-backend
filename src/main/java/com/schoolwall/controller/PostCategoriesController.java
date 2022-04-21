@@ -36,9 +36,7 @@ public class PostCategoriesController {
 
         List<PostCategories> postCategoriesList= postCategoriesService.selectCountPostByCategories();
 
-        Result result= Result.succ(postCategoriesList);
-
-        return result;
+        return Result.succ(postCategoriesList);
 
     }
 
@@ -46,9 +44,7 @@ public class PostCategoriesController {
     @GetMapping("getcategorie/id={cid}")
     public PostCategories getCategorById(@PathVariable(name = "cid") Integer cid){
 
-        PostCategories postCategories= postCategoriesService.getById(cid);
-
-        return postCategories;
+        return postCategoriesService.getById(cid);
     }
 
 

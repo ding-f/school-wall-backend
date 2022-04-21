@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.schoolwall.common.lang.Result;
 import com.schoolwall.service.FatherReplyService;
 import com.schoolwall.service.UserService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public class FatherReplyController {
     UserService userService;
 
 
+    @RequiresAuthentication
     @GetMapping("/getcomments/postid={postid}/commentspage={commentspage}")
     public Result commentList(@PathVariable(name = "postid") Long postId, @PathVariable(name = "commentspage") Integer commentsPage) {
 //        System.out.println("文章ID："+postId+"\n评论页面数："+commentsPage);
