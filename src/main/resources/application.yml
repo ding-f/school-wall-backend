@@ -2,7 +2,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/school_wall?useUnicode=true&useSSL=false&character_set_server = utf8mb4 &serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/school_wall_china?useUnicode=true&useSSL=false&character_set_server = utf8mb4 &serverTimezone=Asia/Shanghai
     username: fuding
     password: Fuding$$$
 

@@ -49,7 +49,7 @@ public class User implements Serializable {
 
     private String email;
 
-    private String age;
+    private Integer age;
 
     private String openId;
 
@@ -58,6 +58,8 @@ public class User implements Serializable {
     private String wxAvatarUrl;
 
     private String useMask;
+
+    private String role;
 
     private String enable;
 

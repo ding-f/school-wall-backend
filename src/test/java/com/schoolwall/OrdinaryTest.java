@@ -117,7 +117,8 @@ class OrdinaryTest {
     @Test
     void getOppenID() throws IOException {
 
-        String code="093usFll2obI094SCLll26H2u52usFlo";
+        //前提保证微信APPID正确，不能是测试号，如果不正确直接去微信小程序开发者工具中修改APPID
+        String code="0133u6ml2Kmo394Hqlll2bFWgV13u6mC";
      final String APPID="wx770c13e4cb377da9";
 
    String appSecret="dc21a35567043302f013fb4f1d78c441";
@@ -138,7 +139,7 @@ class OrdinaryTest {
 
 
         if(response.isSuccessful()){
-            String body= Objects.requireNonNull(response.body()).string();
+            String body= Objects.requireNonNull(response.body()).string();      //此code有效打印结果： {"session_key":"ZfbOBh77gk3qBpwBXWxZqg==","openid":"o7DTV4p5l0ZKoTL5Tu6-sfvmSTss"}
             System.out.println(body);
         }
 

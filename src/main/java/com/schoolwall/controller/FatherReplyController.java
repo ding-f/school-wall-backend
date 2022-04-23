@@ -32,7 +32,7 @@ public class FatherReplyController {
     UserService userService;
 
 
-    @RequiresAuthentication
+//    @RequiresAuthentication
     @GetMapping("/getcomments/postid={postid}/commentspage={commentspage}")
     public Result commentList(@PathVariable(name = "postid") Long postId, @PathVariable(name = "commentspage") Integer commentsPage) {
 //        System.out.println("文章ID："+postId+"\n评论页面数："+commentsPage);

@@ -23,6 +23,8 @@ public class WXRequestUtil {
 
     public String getOppenID(String code) throws IOException {
 
+        String resNull="{\"session_key\":\"\",\"openid\":\"\"}";
+
         String wxURL="https://api.weixin.qq.com/sns/jscode2session" +
                 "?appid=" + APPID +
                 "&secret="+ appSecret +
@@ -39,11 +41,10 @@ public class WXRequestUtil {
 
 
         if(response.isSuccessful()){
-            String body= Objects.requireNonNull(response.body()).string();
-            System.out.println(body);
+            return Objects.requireNonNull(response.body()).string();
         }
 
 
-        return null;
+        return resNull;     //网络错误情况返回
     }
 }
