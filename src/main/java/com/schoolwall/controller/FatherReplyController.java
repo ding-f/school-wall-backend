@@ -43,7 +43,7 @@ public class FatherReplyController {
     public Result commentList(@PathVariable(name = "postid") Long postId, @PathVariable(name = "commentspage") Integer commentsPage) {
 //        System.out.println("文章ID："+postId+"\n评论页面数："+commentsPage);
 
-        Page<Map<String, Object>> dividePage = new Page(commentsPage, 5,true);
+        Page<Map<String, Object>> dividePage = new Page(commentsPage, 16,true);
 
         IPage<Map<String, Object>> replyVo = fatherReplyService.selectReplyVoByPostId(dividePage, postId);
 
@@ -62,30 +62,30 @@ public class FatherReplyController {
     @PostMapping("comment/reply")
     public Result commentAdd(@RequestBody ReplyDto replyDto){
         AccountProfile commentUser=(AccountProfile)SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
-        System.out.println(replyDto);
-//        boolean saveSucc;
-//        if(replyDto.getIsFatherReply()){
-//            FatherReply fatherReply=new FatherReply();
-//            fatherReply.setPostId(replyDto.getPostID());
-//            fatherReply.setUserId(commentUser.getId());
-//            fatherReply.setContent(replyDto.getContent());
-//            fatherReply.setReceiverId(replyDto.getAuthorID());
-//
-//            saveSucc=fatherReplyService.save(fatherReply);
-//
-//        }else {
-//            SonReply sonReply=new SonReply();
-//            sonReply.setPostId(replyDto.getPostID());
-//            sonReply.setFatherReplyId(replyDto.getParentID());
-//            sonReply.setUserId(commentUser.getId());
-//            sonReply.setContent(replyDto.getContent());
-//            sonReply.setReceiverId(replyDto.getReceiverID());
-//
-//            saveSucc=sonReplyService.save(sonReply);
-//        }
+//        System.out.println(replyDto);
+        boolean saveSucc;
+        if(replyDto.getIsFatherReply()){
+            FatherReply fatherReply=new FatherReply();
+            fatherReply.setPostId(replyDto.getPostID());
+            fatherReply.setUserId(commentUser.getId());
+            fatherReply.setContent(replyDto.getContent());
+            fatherReply.setReceiverId(replyDto.getAuthorID());
 
-//        return Result.succ(saveSucc);
-    return null;
+            saveSucc=fatherReplyService.save(fatherReply);
+
+        }else {
+            SonReply sonReply=new SonReply();
+            sonReply.setPostId(replyDto.getPostID());
+            sonReply.setFatherReplyId(replyDto.getParentID());
+            sonReply.setUserId(commentUser.getId());
+            sonReply.setContent(replyDto.getContent());
+            sonReply.setReceiverId(replyDto.getReceiverID());
+
+            saveSucc=sonReplyService.save(sonReply);
+        }
+
+        return Result.succ(200,"评论成功，下拉看看吧。",saveSucc);
+//    return null;
     }
 
 }
