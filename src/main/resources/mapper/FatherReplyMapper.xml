@@ -36,11 +36,11 @@
 
 
     <select id="selectReplyVoByPostId" resultMap="replyVoResultMap" parameterType="java.lang.Long">
-        select f.id as f_id,u.id as f_user_id,u.nick_name as f_user_nick_name,u.avatar_url as f_avatar_url,f.content as
+        select f.id as f_id,u.id as f_user_id,u.wx_name as f_user_nick_name,u.wx_avatar_url as f_avatar_url,f.content as
         f_content,f.receiver_id as f_receiver_id,f.reply_date as f_reply_date,
 
-        s.id as s_id,su.id as s_user_id,su.nick_name as s_user_nick_name,su.avatar_url as
-        s_avatar_url,s.content as s_content,r_su.id as s_receiver_id,r_su.nick_name as s_receiver_nick,s.son_reply_date as s_reply_date
+        s.id as s_id,su.id as s_user_id,su.wx_name as s_user_nick_name,su.wx_avatar_url as
+        s_avatar_url,s.content as s_content,r_su.id as s_receiver_id,r_su.wx_name as s_receiver_nick,s.son_reply_date as s_reply_date
         from sw_father_reply f
         left join sw_user u on f.user_id = u.id
 

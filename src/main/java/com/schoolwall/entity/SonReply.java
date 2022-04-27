@@ -32,11 +32,11 @@ public class SonReply implements Serializable {
 
     private Long fatherReplyId;
 
-    private Long userId;
+    private Integer userId;
 
     private String content;
 
-    private String receiverNick;
+    private Integer receiverId;
 
     private LocalDateTime sonReplyDate;
 

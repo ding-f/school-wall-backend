@@ -113,6 +113,7 @@ public class UserController {
         String wxResJSON= wxRequestUtil.getOppenID(wxInfoDto.getCode());
         JSONObject jsonObject = JSONUtil.parseObj(wxResJSON);
 
+        //微信不会把 session_key 的有效期告知开发者。我们会根据用户使用小程序的行为对 session_key 进行续期。用户越频繁使用小程序，session_key 有效期越长。
         String sessionKey = jsonObject.getStr("session_key");
         String openID = jsonObject.getStr("openid");
 
@@ -175,6 +176,7 @@ public class UserController {
                 return Result.fail("向微信官方请求用户信息失败");
             }
 //            userService.save();
+
         }
 
     }

@@ -18,10 +18,13 @@ public class AccountProfile implements Serializable {
 
     private Integer id;
 
-    private String userName;
+//    private String userName;
+//
+//    private String avatarUrl;
+//
+//    private String email;
+    private  String openId;
 
-    private String avatarUrl;
 
-    private String email;
 
 }

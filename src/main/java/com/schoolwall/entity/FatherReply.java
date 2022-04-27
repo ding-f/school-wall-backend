@@ -30,11 +30,11 @@ public class FatherReply implements Serializable {
 
     private Long postId;
 
-    private Long userId;
+    private Integer userId;
 
     private String content;
 
-    private String receiverNick;
+    private Integer receiverId;
 
     private LocalDateTime fatherReplyDate;
 
