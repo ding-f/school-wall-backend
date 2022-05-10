@@ -31,8 +31,8 @@ public class PostsController {
 
     @Autowired
     PostsService postsService;
-    @Autowired
-    ImagesService imagesService;
+//    @Autowired
+//    ImagesService imagesService;
     @Autowired
     UserService userService;
 
@@ -56,9 +56,9 @@ public class PostsController {
         Posts post = postsService.getById(id);
 
         //查询某文章所有的图片
-        QueryWrapper<Images> imagesQueryWrapper = new QueryWrapper<Images>().select().eq("post_id", id);
-        List postImages = imagesService.list(imagesQueryWrapper);
-        post.setPostAllImages(postImages);
+//        QueryWrapper<Images> imagesQueryWrapper = new QueryWrapper<Images>().select().eq("post_id", id);
+//        List postImages = imagesService.list(imagesQueryWrapper);
+//        post.setPostAllImages(postImages);
 
         //查询某文章点赞用户头像
         QueryWrapper<User> userQueryWrapper = new QueryWrapper<User>()

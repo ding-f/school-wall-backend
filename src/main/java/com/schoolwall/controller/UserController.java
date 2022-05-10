@@ -155,9 +155,10 @@ public class UserController {
 
             if(!StrUtil.hasEmpty(openID)){
                 User newUser = new User();
-                newUser.setOpenId(openID);
-                newUser.setWxName(wxInfoDto.getNickName());
-                newUser.setWxAvatarUrl(wxInfoDto.getAvatarUrl());
+
+                newUser.setOpenId(openID)
+                .setWxName(wxInfoDto.getNickName())
+                .setWxAvatarUrl(wxInfoDto.getAvatarUrl());
 
                 userService.save(newUser);
                 QueryWrapper<User> enrollUserQuery=new QueryWrapper<User>()

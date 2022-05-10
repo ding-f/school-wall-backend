@@ -1,4 +1,4 @@
-package com.schoolwall;
+package com.schoolwall.wxappfileserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,14 +7,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @SpringBootApplication
-public class SchoolwallApplication {
+public class WxappfileserverApplication {
 
     @RequestMapping("/")
     String Home(){
-        return "AUK-WALL-BE";
+        return "AKU-WALL-PS";
     }
+
     public static void main(String[] args) {
-        SpringApplication.run(SchoolwallApplication.class, args);
+        SpringApplication.run(WxappfileserverApplication.class, args);
     }
 
 }

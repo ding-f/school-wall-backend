@@ -1,7 +1,5 @@
 package com.schoolwall.controller;
 
-
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.schoolwall.common.lang.Result;
 import com.schoolwall.entity.PostCategories;
 import com.schoolwall.service.PostCategoriesService;

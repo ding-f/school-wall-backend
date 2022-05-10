@@ -25,7 +25,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("sw_posts")
-public class Posts implements Serializable {
+    public class Posts implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -42,13 +42,31 @@ public class Posts implements Serializable {
 
     private String enable;
 
-    private LocalDateTime modified;
+//    private LocalDateTime modified;
 
     private String type;
 
     private Integer totalComments;
 
+
     private String postMediumImage;
+
+    private String postImage1;
+
+    private String postImage2;
+
+    private String postImage3;
+
+    private String postImage4;
+
+    private String postImage5;
+
+    private String postImage6;
+
+    private String postImage7;
+
+    private String postImage8;
+
 
     private Integer likeCount;
 
