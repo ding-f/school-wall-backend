@@ -7,31 +7,24 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.schoolwall.common.dto.AccountPasswdDto;
 import com.schoolwall.common.dto.WXInfoDto;
 import com.schoolwall.common.lang.Result;
 import com.schoolwall.entity.User;
-import com.schoolwall.common.dto.AccountPasswdDto;
 import com.schoolwall.service.UserService;
-import com.schoolwall.shiro.JwtToken;
 import com.schoolwall.util.JwtUtil;
 import com.schoolwall.util.WXRequestUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
-
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import sun.net.www.http.HttpClient;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Objects;
-import java.util.regex.Pattern;
 
 /**
  * <p>
@@ -106,7 +99,7 @@ public class UserController {
     @PostMapping("/user/wx/login")
     public Result wxLogin(@Validated @RequestBody WXInfoDto wxInfoDto,HttpServletResponse httpResponse) throws IOException {
 
-        System.out.println(wxInfoDto.toString());   //TEST
+//        System.out.println(wxInfoDto.toString());   //TEST
 
         WXRequestUtil wxRequestUtil=new WXRequestUtil();
 
@@ -117,7 +110,7 @@ public class UserController {
         String sessionKey = jsonObject.getStr("session_key");
         String openID = jsonObject.getStr("openid");
 
-        System.out.println("\"session_key\":"+sessionKey+"\"openid\":" + openID);   //TEST
+//        System.out.println("\"session_key\":"+sessionKey+"\"openid\":" + openID);   //TEST
 
         QueryWrapper<User> userQueryWrapper=new QueryWrapper<User>()
                 .select("id","open_id","nick_name","avatar_url","use_mask","wx_name","wx_avatar_url","enable","register_date","role")
@@ -129,15 +122,15 @@ public class UserController {
                 return Result.fail("该用户已被封号");
             }
             //更新微信网名
-            if(!user.getWxName().equals(wxInfoDto.getNickName()) && user.getUseMask().equals("0")) {
+            if(!user.getWxName().equals(wxInfoDto.getNickName())) {
                 LambdaUpdateWrapper<User> userLambdaUpdateWrapper=new LambdaUpdateWrapper<>();
-                userLambdaUpdateWrapper.eq(User::getId,user.getOpenId()).set(User::getWxName,wxInfoDto.getNickName());
+                userLambdaUpdateWrapper.eq(User::getOpenId,user.getOpenId()).set(User::getWxName,wxInfoDto.getNickName());
 
                 String updateUserWXName = userService.update(userLambdaUpdateWrapper) ? "更新微信网名成功" : "更新微信网名失败，请检查数据库！";
                 System.out.println(updateUserWXName);
             }
             //更新微信头像链接
-            if(!user.getWxAvatarUrl().equals(wxInfoDto.getAvatarUrl()) && user.getUseMask().equals("0")){
+            if(!user.getWxAvatarUrl().equals(wxInfoDto.getAvatarUrl())){
                 LambdaUpdateWrapper<User> userLambdaUpdateWrapper=new LambdaUpdateWrapper<>();
                 userLambdaUpdateWrapper.eq(User::getOpenId,user.getOpenId()).set(User::getWxAvatarUrl,wxInfoDto.getAvatarUrl());
 

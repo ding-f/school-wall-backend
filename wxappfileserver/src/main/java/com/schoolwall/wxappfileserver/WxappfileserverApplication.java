@@ -11,7 +11,7 @@ public class WxappfileserverApplication {
 
     @RequestMapping("/")
     String Home(){
-        return "AKU-WALL-PS";
+        return "AKU-WALL-FS";
     }
 
     public static void main(String[] args) {

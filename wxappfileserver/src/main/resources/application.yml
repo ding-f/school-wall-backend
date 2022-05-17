@@ -7,3 +7,10 @@ spring:
     multipart:
       max-file-size: 3MB
       max-request-size: 27MB
+
+schoolwall-fs:
+  hostinfo:
+    #文件服务器协议
+    protocol: http://
+    #文件服务器主机名 端口号
+    hostname: 0.0.0.0:2121
