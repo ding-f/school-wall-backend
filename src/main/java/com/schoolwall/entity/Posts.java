@@ -49,7 +49,7 @@ import lombok.experimental.Accessors;
     private Integer totalComments;
 
 
-    private String postMediumImage;
+    private String postImage0;
 
     private String postImage1;
 

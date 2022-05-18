@@ -1,7 +1,9 @@
 package com.schoolwall.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.schoolwall.common.lang.Result;
 import com.schoolwall.entity.PostCategories;
+import com.schoolwall.entity.Posts;
 import com.schoolwall.service.PostCategoriesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +38,15 @@ public class PostCategoriesController {
 
         return Result.succ(postCategoriesList);
 
+    }
+
+    //发布墙贴获取分类列表
+    @GetMapping("/addpostcategories")
+    public Result listPostAddCate(){
+        QueryWrapper<PostCategories> queryWrapper= new QueryWrapper<PostCategories>().select( "id","name","description");
+        List<PostCategories> cateList=postCategoriesService.list(queryWrapper);
+        Result result= Result.succ(cateList);
+        return result;
     }
 
     //根据ID获取某个分类信息
