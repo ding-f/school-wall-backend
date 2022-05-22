@@ -4,7 +4,6 @@ import com.schoolwall.wxappfileserver.config.AppConfigInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,6 +28,7 @@ import java.util.UUID;
  * @author fuding 铸鼎_ Blog: https://ding-f.gitee.io/
  * @since 2022 2022/5/7 17:23
  */
+
 @Slf4j
 @RestController
 @RequestMapping("/schoolwall_fs")

@@ -32,7 +32,7 @@ public class SonReply implements Serializable {
 
     private Long fatherReplyId;
 
-    private Integer userId;
+    private Long userId;
 
     private String content;
 

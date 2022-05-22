@@ -27,6 +27,8 @@ public class Result implements Serializable {
         return succ(200, "操作成功", data);
     }
 
+    public static Result succ(int code,String msg){return succ(code,msg,null);}
+
     public static Result succ(int code, String msg, Object data) {      //自定义（返回码，消息，数据）
         Result r = new Result();
         r.setCode(code);
@@ -44,8 +46,6 @@ public class Result implements Serializable {
     }       //自定义错误返回（消息，数据）
 
     public static Result fail(int code,String msg){
-
-
         return fail(code,msg,null);
     }
 

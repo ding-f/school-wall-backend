@@ -30,7 +30,7 @@ public class FatherReply implements Serializable {
 
     private Long postId;
 
-    private Integer userId;
+    private Long userId;
 
     private String content;
 

@@ -18,7 +18,7 @@ public class PostInfoDto {
 
     String title;
     String content;
-    String categoryID;
+    Integer categoryId;
     String postImage0;
     String postImage1;
     String postImage2;

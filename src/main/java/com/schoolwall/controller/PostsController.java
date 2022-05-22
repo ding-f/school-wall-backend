@@ -13,6 +13,9 @@ import com.schoolwall.entity.User;
 import com.schoolwall.service.ImagesService;
 import com.schoolwall.service.PostsService;
 import com.schoolwall.service.UserService;
+import com.schoolwall.shiro.AccountProfile;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -76,12 +79,13 @@ public class PostsController {
     @GetMapping("/posts/page={page}/categorieid={cid}")
     public IPage<Posts> postListByCategorieId(@PathVariable(name = "page") Integer pageNum ,@PathVariable(name = "cid") Integer cateId){
 
+        Page page = new Page(pageNum,10,false);
+
         QueryWrapper<Posts> queryWrapper= new QueryWrapper<Posts>().select("id","title", "post_image0", "date", "total_comments", "like_count", "pageviews")
+                .orderByDesc("date")
                 .eq("category_id",cateId);
 
 //        List postList= postsService.list(queryWrapper);
-
-        Page page = new Page(pageNum,10,false);
 
         IPage<Posts> pageData = postsService.page(page,queryWrapper);
 
@@ -106,12 +110,16 @@ public class PostsController {
         return searchPostsPage;
     }
 
-    //
+    //墙贴发布或更改
+    @RequiresAuthentication
     @PostMapping("/postaddorup")
     public Result addOrUpdatePost(@RequestBody PostInfoDto postInfo){
         System.out.println(postInfo.toString());
+        //获得登录用户Principal
+        AccountProfile commentUser=(AccountProfile) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         Posts post=new Posts();
         BeanUtil.copyProperties(postInfo,post);
+        post.setUserId(commentUser.getId());
         boolean out = postsService.saveOrUpdate(post);
 
         return Result.succ(out);

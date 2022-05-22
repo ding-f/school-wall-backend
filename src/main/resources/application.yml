@@ -11,8 +11,12 @@ spring:
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
+    #mybatis-plus配置控制台打印完整带参数SQL语句:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 server:
   port: 3000
+
 
 shiro-redis:
   enabled: true
