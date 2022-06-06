@@ -4,7 +4,6 @@ import cn.hutool.core.bean.BeanUtil;
 import com.schoolwall.entity.User;
 import com.schoolwall.service.UserService;
 import com.schoolwall.util.JwtUtil;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -58,6 +57,7 @@ public class AccountRealm extends AuthorizingRealm {
         BeanUtil.copyProperties(user, profile);
 
 
+        //将Principa
         return new SimpleAuthenticationInfo(profile, jwtToken.getCredentials(), getName());     //getName()="jwt"
     }
 }

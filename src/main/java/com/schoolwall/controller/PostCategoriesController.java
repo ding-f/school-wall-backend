@@ -40,6 +40,7 @@ public class PostCategoriesController {
     @Autowired
     PostsService postsService;
 
+
     //获取分类列表
     @GetMapping("/categories")
     public Result listCategories(){
@@ -142,30 +143,16 @@ public class PostCategoriesController {
 
     }
 
-    //获取订阅墙贴列表
+
+    //获取所有订阅墙贴列表
     @RequiresAuthentication
-    @GetMapping("/category/getsubscription/openid={openId}")
-    public Result getPostByCateId(@PathVariable("openId") String openId){
+    @GetMapping("/category/getall/subscription")
+    public Result getPostByCateId(){
         AccountProfile subUser=(AccountProfile) SecurityUtils.getSubject().getPrincipals().getPrimaryPrincipal();
         Long userId = subUser.getId();
 
-        List<Integer> userSubList = new ArrayList<>();
-        QueryWrapper<UserSubscriptions> queryWrapper= new QueryWrapper<UserSubscriptions>().select("post_categories_id").eq("user_id",userId);
-        List<UserSubscriptions> userSubedList = userSubscriptionsService.list(queryWrapper);
-//        System.out.println(userSubedList);
-        //取出用户已经订阅的ID放入数组
-        for (UserSubscriptions userSub:userSubedList
-        ) {
+        List<Posts> list = userSubscriptionsService.userSubPosts(userId);
 
-            userSubList.add(userSub.getPostCategoriesId());
-//            System.out.println(userSub.getPostCategoriesId());
-
-        }
-
-        System.out.println(userSubList);
-//        QueryWrapper queryWrapper1=new QueryWrapper<>().;
-        Collection<Posts> list=postsService.listByIds(userSubList);
-        System.out.println(list);
         return Result.succ(list);
     }
 

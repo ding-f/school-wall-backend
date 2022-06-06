@@ -2,20 +2,86 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.schoolwall.mapper.PostsMapper">
 
-<!--    <resultMap id="searchPostResult" type="com.schoolwall.entity.Posts" autoMapping="true">-->
-<!--        <id column="id" property="id"/>-->
-<!--        -->
-<!--    </resultMap>-->
 
-<!--    <select id="seachPosts" resultMap="searchPostResult" parameterType="String" >-->
-<!--        SELECT id, title, post_medium_image, date, total_comments, like_count, pageviews-->
-<!--        FROM school_wall.sw_posts-->
-<!--        where content like concat('%'-->
-<!--            , #{searchKey}-->
-<!--            , '%')-->
-<!--           or title like concat('%'-->
-<!--            , #{searchKey}-->
-<!--            , '%')-->
-<!--        order by date desc-->
-<!--    </select>-->
+    <resultMap id="postAllUser" type="com.schoolwall.entity.User" autoMapping="true">
+        <id property="id" column="autId"/>
+    </resultMap>
+
+    <resultMap id="postInfoVoMap" type="com.schoolwall.entity.Posts" autoMapping="true">
+        <id property="id" column="p_id" />
+
+        <association property="author" javaType="com.schoolwall.entity.User" resultMap="postAllUser" autoMapping="true"/>
+        <collection property="postLikers" ofType="com.schoolwall.entity.User" >
+            <id property="id" column="luId" />
+            <result property="wxId" column="wx_id"/>
+            <result property="wxName" column="wx_name"/>
+            <result property="wxAvatarUrl" column="wx_avatar_url"/>
+            <result property="enable" column="l_enable"/>
+            <result property="role" column="l_role"/>
+
+        </collection>
+    </resultMap>
+
+
+
+
+    <select id="getPostAllInfo" resultMap="postInfoVoMap" parameterType="Long">
+        select p_id,
+               title,
+               content,
+               'type',
+               post_image0            as postImage0,
+               post_image1            as postImage1,
+               post_image2            as postImage2,
+               post_image3            as postImage3,
+               post_image4            as postImage4,
+               post_image5            as postImage5,
+               post_image6            as postImage6,
+               post_image7            as postImage7,
+               post_image8            as postImage8,
+               pageviews,
+               total_comments         as totalComments,
+               like_count             as likeCount,
+               p_enable               as enable,
+               post_aut.date          as 'date',
+
+                u_id                   as autId,
+               post_aut.wx_id         as wxId,
+               post_aut.wx_avatar_url as wxAvatarUrl,
+               post_aut.wx_name       as wxName,
+               u_enable               as enable,
+               post_aut.role          as role,
+
+               lu.id                  as luId,
+               lu.wx_id               ,
+               lu.wx_name             ,
+               lu.wx_avatar_url       ,
+               lu.enable              as l_enable,
+               lu.role                as  l_role
+        from
+            (
+                SELECT p.id     as p_id,
+                       title,
+                       content,
+                       type,
+                       post_image0,
+                       post_image1,
+                       post_image2,
+                       post_image3,
+                       post_image4,
+                       post_image5,
+                       post_image6,
+                       post_image7,
+                       post_image8,
+                       pageviews,
+                       total_comments,
+                       like_count,
+                       p.enable as p_enable, date, u.id as u_id,wx_id, wx_name, wx_avatar_url, u.enable as u_enable, role
+                FROM sw_posts as p inner join sw_user as u
+                on u.id=p.user_id and p.id=#{id}
+            ) as post_aut
+                left join sw_like l on post_aut.p_id = l.post_id
+                left join sw_user as lu on l.user_id = lu.id
+        order by l.date asc
+    </select>
 </mapper>

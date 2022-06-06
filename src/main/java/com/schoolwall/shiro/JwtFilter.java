@@ -39,7 +39,7 @@ public class JwtFilter extends AuthenticatingFilter {
 
 
     @Override
-    //拦截用户请求，获取JWT
+    //拦截用户请求，获取JWT(解析出给Shiro设置)
     protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) throws Exception {
         HttpServletRequest userRequest= (HttpServletRequest) request;
         //获取jwt，放在Http协议的头部的"Authorization"

@@ -31,6 +31,8 @@ public class User implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    private String wxId;
+
     @Email(message = "邮箱格式不正确")
     @NotBlank(message = "请输入邮箱，这将作为您的登录账号")
     private String userName;
@@ -57,7 +59,7 @@ public class User implements Serializable {
 
     private String wxAvatarUrl;
 
-    private String useMask;
+//    private String useMask;
 
     private String role;
 

@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.schoolwall.mapper.SonReplyMapper">
+    <resultMap id="myReplys" type="com.schoolwall.entity.vo.UserReplyVo" autoMapping="true">
+        <id column="id" property="id"/>
+        <result column="son_reply_date" property="sonReplyDate"/>
+    </resultMap>
+
+    <select id="selectUserReplys" resultMap="myReplys" parameterType="Long">
+        (SELECT ssr.id , post_id, content, receiver_id, su.wx_name, son_reply_date,1 as 'from'
+         FROM school_wall.sw_son_reply ssr
+                  left join sw_user su on ssr.receiver_id = su.id
+         where user_id = #{user_id})
+        union
+        (select sfr.id ,post_id, content, receiver_id, su.wx_name, reply_date,0 as 'from'
+         from sw_father_reply sfr
+                  left join sw_user su on sfr.receiver_id = su.id
+         where user_id = #{user_id})
+        order by son_reply_date desc limit 66
+    </select>
 
 </mapper>

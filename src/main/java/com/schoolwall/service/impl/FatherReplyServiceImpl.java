@@ -18,14 +18,12 @@ import java.util.Map;
  * @author fuding
  * @since 2022-03-21
  */
+
 @Service
 public class FatherReplyServiceImpl extends ServiceImpl<FatherReplyMapper, FatherReply> implements FatherReplyService {
 
 @Autowired
 private FatherReplyMapper fatherReplyMapper;
-
-
-
 
     @Override
     public IPage<Map<String, Object>> selectReplyVoByPostId(IPage<Map<String, Object>> page, Long postId) {

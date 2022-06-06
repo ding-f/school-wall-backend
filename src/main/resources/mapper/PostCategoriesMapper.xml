@@ -7,8 +7,7 @@
         <result property="count" column="posts_count"/>
     </resultMap>
 
-
-    <select id="selectCountPostByCategories" resultMap="postCategoriesMap">
+    <select id="selectCountPostByCategories" resultMap="postCategoriesMap" parameterType="java.lang.Long">
 
         select spc.id, spc.name, spc.description, spc.category_thumbnail_image, count(sp.id) as posts_count
         from sw_post_categories spc

@@ -4,12 +4,21 @@ import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.schoolwall.common.dto.WXInfoDto;
+import com.schoolwall.entity.Posts;
 import com.schoolwall.entity.User;
+import com.schoolwall.entity.vo.PostInfoVo;
+import com.schoolwall.entity.vo.UserReplyVo;
+import com.schoolwall.mapper.PostsMapper;
+import com.schoolwall.mapper.SonReplyMapper;
 import com.schoolwall.service.UserService;
 
+import com.schoolwall.service.UserSubscriptionsService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -69,5 +78,33 @@ class SpringBootAllTest {
         userLambdaUpdateWrapper.eq(User::getId,user.getId()).set(User::getWxName,wxInfoDto.getNickName());
 
         System.out.println(userService.update(userLambdaUpdateWrapper));
+    }
+
+    @Autowired
+    UserSubscriptionsService userSubscriptionsService;
+
+    @Test
+    void userAllSubList(){
+        List<Posts> posts = userSubscriptionsService.userSubPosts(13L);
+        System.out.println(posts);
+    }
+
+    @Autowired
+    SonReplyMapper sonReplyMapper;
+
+    @Test
+    void myReplys(){
+        List<UserReplyVo> list=sonReplyMapper.selectUserReplys(13L);
+        System.out.println(list);
+    }
+
+    @Autowired
+    PostsMapper postsMapper;
+
+    @Test
+    void postInfo(){
+        Posts info= postsMapper.getPostAllInfo(123L);
+
+        System.out.println(info);
     }
 }

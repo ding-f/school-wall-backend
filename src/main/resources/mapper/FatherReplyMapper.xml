@@ -4,7 +4,7 @@
     <resultMap id="replyVoResultMap" type="com.schoolwall.entity.vo.ReplyVo">
         <id column="f_id" property="id" jdbcType="BIGINT"/>
 
-        <result column="f_user_id" property="fatherUserID" />
+        <result column="f_user_id" property="fatherUserID"/>
 
         <result column="f_user_nick_name" property="nickName" jdbcType="CHAR"/>
 
@@ -40,7 +40,8 @@
         f_content,f.receiver_id as f_receiver_id,f.reply_date as f_reply_date,
 
         s.id as s_id,su.id as s_user_id,su.wx_name as s_user_nick_name,su.wx_avatar_url as
-        s_avatar_url,s.content as s_content,r_su.id as s_receiver_id,r_su.wx_name as s_receiver_nick,s.son_reply_date as s_reply_date
+        s_avatar_url,s.content as s_content,r_su.id as s_receiver_id,r_su.wx_name as s_receiver_nick,s.son_reply_date as
+        s_reply_date
         from sw_father_reply f
         left join sw_user u on f.user_id = u.id
 

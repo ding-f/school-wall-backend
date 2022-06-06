@@ -17,6 +17,7 @@ import java.util.Map;
  */
 
 public interface FatherReplyService extends IService<FatherReply> {
+
     IPage<Map<String, Object>> selectReplyVoByPostId(IPage<Map<String, Object>> page,@Param("post_id") Long postId);
 
 }

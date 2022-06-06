@@ -54,6 +54,13 @@ public class PostsController {
         return pageData;
     }
 
+    //查询帖子所有信息
+    @GetMapping("getpostinfo/id={id}")
+    public Result postInfo(@PathVariable(name = "id") Long id){
+       Posts p=postsService.getPostAllInfo(id);
+        return Result.succ(p);
+    }
+
     //查询帖子详细信息
     @GetMapping("getpost/id={id}")
     public Posts postDetail(@PathVariable(name = "id") Long id) {

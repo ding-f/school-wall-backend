@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.schoolwall.entity.vo.PostLikerVo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -73,6 +74,12 @@ import lombok.experimental.Accessors;
     private Integer pageviews;
 
     private Integer categoryId;
+
+    @TableField(exist = false)
+    private User author;
+
+    @TableField(exist = false)
+    private List<PostLikerVo> postLikers;
 
     @TableField(exist = false)
     private List postAllImages;

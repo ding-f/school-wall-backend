@@ -2,4 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.schoolwall.mapper.UserSubscriptionsMapper">
 
+    <resultMap id="userSubMap" type="com.schoolwall.entity.vo.SubListVo" autoMapping="true">
+        <id property="id" column="id"/>
+    </resultMap>
+
+    <select id="userSubPosts" resultMap="userSubMap" parameterType="java.lang.Long">
+        SELECT p.id, p.title, p.user_id,u.wx_name,p.date
+        FROM sw_user_subscriptions as u_sub
+                 left join sw_posts as p on u_sub.post_categories_id = p.category_id
+                 left join sw_user as u on p.user_id=u.id
+        where u_sub.user_id = #{user_id}
+        order by p.date desc limit 66
+    </select>
 </mapper>
