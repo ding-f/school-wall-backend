@@ -7,7 +7,7 @@ spring:
     password: Fuding$$$
 
   jackson:
-    default-property-inclusion: non_null # 全局jackson配置
+    default-property-inclusion: non_null # 全局jackson配置，返回的Json数据如果为null键值将不会显示
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml

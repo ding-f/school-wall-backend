@@ -8,11 +8,12 @@
     </resultMap>
 
     <resultMap id="postInfoVoMap" type="com.schoolwall.entity.Posts" autoMapping="true">
-        <id property="id" column="p_id" />
+        <id property="id" column="p_id"/>
 
-        <association property="author" javaType="com.schoolwall.entity.User" resultMap="postAllUser" autoMapping="true"/>
-        <collection property="postLikers" ofType="com.schoolwall.entity.User" >
-            <id property="id" column="luId" />
+        <association property="author" javaType="com.schoolwall.entity.User" resultMap="postAllUser"
+                     autoMapping="true"/>
+        <collection property="postLikers" ofType="com.schoolwall.entity.User">
+            <id property="id" column="luId"/>
             <result property="wxId" column="wx_id"/>
             <result property="wxName" column="wx_name"/>
             <result property="wxAvatarUrl" column="wx_avatar_url"/>
@@ -21,8 +22,6 @@
 
         </collection>
     </resultMap>
-
-
 
 
     <select id="getPostAllInfo" resultMap="postInfoVoMap" parameterType="Long">
@@ -43,9 +42,7 @@
                total_comments         as totalComments,
                like_count             as likeCount,
                p_enable               as enable,
-               post_aut.date          as 'date',
-
-                u_id                   as autId,
+               post_aut.date as 'date', u_id as autId,
                post_aut.wx_id         as wxId,
                post_aut.wx_avatar_url as wxAvatarUrl,
                post_aut.wx_name       as wxName,
@@ -53,35 +50,34 @@
                post_aut.role          as role,
 
                lu.id                  as luId,
-               lu.wx_id               ,
-               lu.wx_name             ,
-               lu.wx_avatar_url       ,
+               lu.wx_id,
+               lu.wx_name,
+               lu.wx_avatar_url,
                lu.enable              as l_enable,
-               lu.role                as  l_role
-        from
-            (
-                SELECT p.id     as p_id,
-                       title,
-                       content,
-                       type,
-                       post_image0,
-                       post_image1,
-                       post_image2,
-                       post_image3,
-                       post_image4,
-                       post_image5,
-                       post_image6,
-                       post_image7,
-                       post_image8,
-                       pageviews,
-                       total_comments,
-                       like_count,
-                       p.enable as p_enable, date, u.id as u_id,wx_id, wx_name, wx_avatar_url, u.enable as u_enable, role
-                FROM sw_posts as p inner join sw_user as u
-                on u.id=p.user_id and p.id=#{id}
-            ) as post_aut
-                left join sw_like l on post_aut.p_id = l.post_id
-                left join sw_user as lu on l.user_id = lu.id
+               lu.role                as l_role
+        from (
+                 SELECT p.id     as p_id,
+                        title,
+                        content,
+                        type,
+                        post_image0,
+                        post_image1,
+                        post_image2,
+                        post_image3,
+                        post_image4,
+                        post_image5,
+                        post_image6,
+                        post_image7,
+                        post_image8,
+                        pageviews,
+                        total_comments,
+                        like_count,
+                        p.enable as p_enable, date, u.id as u_id, wx_id, wx_name, wx_avatar_url, u.enable as u_enable, role
+                 FROM sw_posts as p inner join sw_user as u
+                 on u.id=p.user_id and p.id=#{id}
+             ) as post_aut
+                 left join sw_like l on post_aut.p_id = l.post_id
+                 left join sw_user as lu on l.user_id = lu.id
         order by l.date asc
     </select>
 </mapper>

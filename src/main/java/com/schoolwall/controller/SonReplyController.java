@@ -32,6 +32,7 @@ public class SonReplyController {
     SonReplyMapper sonReplyMapper;
 
     @RequiresAuthentication
+
     @GetMapping("/my/comments")
     public Result myReplys(){
         //获取已登录用户ID
