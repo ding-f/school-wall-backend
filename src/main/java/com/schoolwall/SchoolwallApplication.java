@@ -11,7 +11,7 @@ public class SchoolwallApplication {
 
     @RequestMapping("/")
     String Home(){
-        return "AUK-WALL-BE";
+        return "AKU-WALL-BE";
     }
     public static void main(String[] args) {
         SpringApplication.run(SchoolwallApplication.class, args);
