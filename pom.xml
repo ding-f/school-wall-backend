@@ -18,6 +18,7 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+        <!--        TomCat相关-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -96,20 +97,29 @@
         <!--相当于一个浏览器，如HttpClient，代码方式访问链接获取资源-->
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
-                    <artifactId>okhttp</artifactId>
+            <artifactId>okhttp</artifactId>
             <version>4.9.2</version>
             <scope>compile</scope>
+        </dependency>
+        <!--      swagger3  -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+
         </dependency>
 
     </dependencies>
 
+    <!--    Maven编译打包配置-->
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <testFailureIgnore>true</testFailureIgnore> </configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                </configuration>
             </plugin>
 
             <plugin>

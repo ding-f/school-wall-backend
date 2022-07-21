@@ -4,10 +4,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.oas.annotations.EnableOpenApi;
 
+@EnableOpenApi
 @RestController
 @SpringBootApplication
 public class SchoolwallApplication {
+
 
     @RequestMapping("/")
     String Home(){

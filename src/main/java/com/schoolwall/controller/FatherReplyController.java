@@ -12,6 +12,10 @@ import com.schoolwall.service.FatherReplyService;
 import com.schoolwall.service.SonReplyService;
 import com.schoolwall.service.UserService;
 import com.schoolwall.shiro.AccountProfile;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import lombok.RequiredArgsConstructor;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,20 +31,25 @@ import java.util.Map;
  * @author fuding
  * @since 2022-03-21
  */
+
+@Api(tags = "父级评论信息处理APIs")
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/schoolwall")
 public class FatherReplyController {
-    @Autowired
-    FatherReplyService fatherReplyService;
-    @Autowired
-    SonReplyService sonReplyService;
-    @Autowired
-    UserService userService;
+
+    final FatherReplyService fatherReplyService;
+
+    final SonReplyService sonReplyService;
+
+    final UserService userService;
 
 
+    @ApiOperation(value = "根据墙贴ID获取评论列表并实现翻页")
     @RequiresAuthentication
     @GetMapping("/getcomments/postid={postid}/commentspage={commentspage}")
-    public Result commentList(@PathVariable(name = "postid") Long postId, @PathVariable(name = "commentspage") Integer commentsPage) {
+    public Result commentList(@ApiParam(value = "需获取评论列表的墙贴ID",example = "123",required = true, name = "postid") @PathVariable(name = "postid") Long postId,
+                              @ApiParam(value = "父子评论列表翻页页数",required = true, example = "1", name = "commentspage") @PathVariable(name = "commentspage") Integer commentsPage) {
 //        System.out.println("文章ID："+postId+"\n评论页面数："+commentsPage);
 
         Page<Map<String, Object>> dividePage = new Page(commentsPage, 16,true);
@@ -58,6 +67,7 @@ public class FatherReplyController {
         return result;
     }
 
+    @ApiOperation(value = "父/子评论回复墙贴((FatherReply,  false子,true父))")
     @RequiresAuthentication
     @PostMapping("comment/reply")
     public Result commentAdd(@RequestBody ReplyDto replyDto){

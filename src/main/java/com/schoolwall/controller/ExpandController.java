@@ -5,6 +5,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.schoolwall.common.lang.ExpandResult;
 import com.schoolwall.entity.Expand;
 import com.schoolwall.service.ExpandService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+import io.swagger.annotations.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +25,9 @@ import java.util.List;
  * @API http://0.0.0.0:3000/schoolwall/options/homeconfig
  * @since 2022-03-06
  */
+
+
+@Api(tags = "首页轮播图和精选内容APIs")
 @RestController
 @RequestMapping("/schoolwall")
 public class ExpandController {
@@ -29,6 +36,7 @@ public class ExpandController {
 
     String zanImageurl = "https:\\/\\/ding-f.gitee.io\\/medias\\/reward\\/alipay_red.png";
 
+    @ApiOperation("首页轮播图精选内容数据获取")
     @GetMapping("/options/homeconfig")
     public ExpandResult list() {
 

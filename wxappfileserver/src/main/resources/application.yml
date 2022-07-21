@@ -14,3 +14,5 @@ schoolwall-fs:
     protocol: http://
     #文件服务器主机名 端口号
     hostname: 0.0.0.0:2121
+
+

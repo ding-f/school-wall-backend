@@ -10,6 +10,12 @@ import com.schoolwall.service.PostCategoriesService;
 import com.schoolwall.service.PostsService;
 import com.schoolwall.service.UserSubscriptionsService;
 import com.schoolwall.shiro.AccountProfile;
+import io.swagger.annotations.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,19 +35,20 @@ import java.util.List;
  * @author fuding
  * @since 2022-03-15
  */
+
+@Api(tags = "墙贴分类信息处理APIs")
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/schoolwall")
 public class PostCategoriesController {
 
-    @Autowired
-    PostCategoriesService postCategoriesService;
-    @Autowired
-    UserSubscriptionsService userSubscriptionsService;
-    @Autowired
-    PostsService postsService;
+    final PostCategoriesService postCategoriesService;
+    final UserSubscriptionsService userSubscriptionsService;
+    final PostsService postsService;
 
 
     //获取分类列表
+    @ApiOperation(value = "获取分类列表")
     @GetMapping("/categories")
     public Result listCategories(){
 
@@ -51,6 +58,7 @@ public class PostCategoriesController {
     }
 
     //发布墙贴时获取分类列表
+    @ApiOperation(value = "发布墙贴时获取分类列表")
     @GetMapping("/addpostcategories")
     public Result listPostAddCate(){
         QueryWrapper<PostCategories> queryWrapper= new QueryWrapper<PostCategories>().select( "id","name","description");
@@ -59,14 +67,16 @@ public class PostCategoriesController {
         return result;
     }
 
-    //根据ID获取某个分类信息
+    //根据分类ID某个分类详细信息
+    @ApiOperation(value = "根据分类ID某个分类详细信息" )
     @GetMapping("/getcategorie/id={cid}")
-    public PostCategories getCategorById(@PathVariable(name = "cid") Integer cid){
+    public PostCategories getCategorById(@ApiParam(value = "分类ID", example = "2", required = true, name = "cid") @PathVariable(name = "cid") Integer cid){
 
         return postCategoriesService.getById(cid);
     }
 
-    //根据用户ID获取分类订阅ID
+    //根据用户ID获取带有订阅状态的分类列表
+    @ApiOperation(value = "根据用户ID获取带有订阅状态的分类列表")
     @RequiresAuthentication
     @GetMapping("/getsubcategories/byuser")
     public Result getSubCateIdByUser(){
@@ -105,7 +115,9 @@ public class PostCategoriesController {
     }
 
 
-    //增删订阅信息
+    //根据订阅状态判断增/删订阅列表，实现订阅列表订阅与取消订阅
+    @ApiOperation(value = "根据订阅状态判断增删订阅列表，实现订阅列表订阅与取消订阅")
+//    @ApiImplicitParams({@ApiImplicitParam(name = "categoryId", required = true)})
     @RequiresAuthentication
     @PostMapping("/category/postsubscription")
     public Result delOrAddSub(@RequestBody SubInfoDto subInfoDto){
@@ -145,6 +157,7 @@ public class PostCategoriesController {
 
 
     //获取所有订阅墙贴列表
+    @ApiOperation(value = "获取某用户所有已订阅墙贴列表")
     @RequiresAuthentication
     @GetMapping("/category/getall/subscription")
     public Result getPostByCateId(){

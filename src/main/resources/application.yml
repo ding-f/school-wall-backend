@@ -29,3 +29,6 @@ schoolwall:
     # token有效时长，7天，单位毫秒
     expire: 604800000
     header: Authorization
+
+swagger:
+  enabled: true
